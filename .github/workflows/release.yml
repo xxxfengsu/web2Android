@@ -32,6 +32,9 @@ jobs:
       - name: Capacitor sync android
         run: npx cap sync android
 
+      - name: Capacitor copy android
+        run: npx cap copy android
+
       - name: Install Android SDK
         uses: android-actions/setup-android@v3
 
