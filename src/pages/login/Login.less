@@ -119,3 +119,50 @@
     top: 0;
   }
 }
+
+@media (max-width: 768px) {
+  .login-box {
+    flex-direction: column;
+    width: 100vw;
+    height: 100vh;
+    border-radius: 0;
+    box-shadow: none;
+    position: relative;
+  }
+  .login-form-section {
+    position: static;
+    width: 100vw;
+    min-width: 0;
+    padding: 32px 16px;
+    transform: none;
+    left: 0;
+    top: 0;
+    box-sizing: border-box;
+  }
+  .login-image-section {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .login-form-section {
+    padding: 16px 8px;
+    .login-logo {
+      width: 100px;
+      margin-bottom: 16px;
+    }
+    h2 {
+      font-size: 20px;
+      margin-bottom: 16px;
+    }
+    form input[type="text"],
+    form input[type="password"] {
+      font-size: 14px;
+      padding: 10px;
+    }
+    .login-btn {
+      font-size: 15px;
+      padding: 10px;
+    }
+  }
+}

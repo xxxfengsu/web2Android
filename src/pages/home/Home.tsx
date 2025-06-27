@@ -1,3 +1,13 @@
+
+
+import Header from '../../compoents/Header/Header.tsx';
+import './Home.less';
+
+
 export default function Home() {
-  return <h2>首页内容</h2>;
+
+  return <div className="main">
+    <Header />
+    
+  </div>;
 }
