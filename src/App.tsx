@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route, Navigate, Outlet } from 'react-router-dom';
 import Home from './pages/home/Home.tsx';
 import Login from './pages/login/Login.tsx';
+import ImageAnalysis from './pages/imageAnalysis/ImageAnalysis.tsx';
 
 function RequireAuth() {
   const token = localStorage.getItem('token');
@@ -14,6 +15,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route element={<RequireAuth />}>
           <Route path="/" element={<Home />} />
+          <Route path="/imageAnalysis" element={<ImageAnalysis />} />
         </Route>
       </Routes>
     </BrowserRouter>

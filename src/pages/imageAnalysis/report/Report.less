@@ -1,0 +1,149 @@
+.report-page {
+  width: 100vw;
+  min-height: 100vh;
+  background: #f7f7f7;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 64px;
+  padding-left: 12px;
+  padding-right: 12px;
+  box-sizing: border-box;
+  /* 隐藏滚动条样式 */
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  scrollbar-width: none;      // Firefox
+  -ms-overflow-style: none;   // IE/Edge
+}
+
+.report-title {
+  font-size: 2.2rem;
+  font-weight: bold;
+  color: #222;
+  text-align: center;
+  margin-bottom: 8px;
+  letter-spacing: 2px;
+}
+
+.report-subtitle {
+  color: #888;
+  font-size: 1.1rem;
+  text-align: center;
+  margin-bottom: 32px;
+  letter-spacing: 1px;
+}
+
+.report-card {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 6px 32px rgba(0,0,0,0.10);
+  display: flex;
+  align-items: flex-start;
+  padding: 40px 48px;
+  gap: 48px;
+  width: 100%;
+  max-width: 900px;
+}
+
+.report-info {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.info-title {
+  font-size: 1.3rem;
+  font-weight: bold;
+  margin-bottom: 24px;
+  color: #222;
+}
+
+.info-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 18px;
+  gap: 16px;
+}
+
+.info-label {
+  width: 80px;
+  color: #444;
+  font-weight: 500;
+  font-size: 1rem;
+}
+
+.info-value {
+  background: #f5f6fa;
+  border-radius: 6px;
+  padding: 8px 18px;
+  min-width: 90px;
+  color: #222;
+  font-size: 1rem;
+  margin-right: 24px;
+}
+
+.info-tags {
+  display: flex;
+  gap: 10px;
+}
+
+.tag {
+  background: #eaeaea;
+  color: #888;
+  border-radius: 6px;
+  padding: 6px 16px;
+  font-size: 1rem;
+  font-weight: 500;
+}
+.tag-active {
+  background: #e3f0ff;
+  color: #2196f3;
+}
+
+.info-btn {
+  margin-top: 18px;
+  background: #222;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 32px;
+  font-size: 1.08rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.info-btn:hover {
+  background: #2196f3;
+}
+
+.report-avatar {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.report-avatar img {
+  width: 180px;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 12px;
+  background: #f5f6fa;
+}
+
+@media (max-width: 900px) {
+  .report-card {
+    flex-direction: column;
+    align-items: center;
+    min-width: unset;
+    padding: 24px 8px;
+    gap: 24px;
+    width: 100%;
+    max-width: 100%;
+  }
+  .report-avatar img {
+    width: 120px;
+    height: 150px;
+  }
+}
