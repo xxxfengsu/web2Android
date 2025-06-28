@@ -81,9 +81,10 @@
 }
 
 .footer {
+  position: relative;
+  overflow: hidden;
   background: #232323;
   color: #fff;
-  padding: 48px 0 0 0;
   font-size: 15px;
   .footer-main {
     display: flex;
@@ -165,4 +166,59 @@
       }
     }
   }
+}
+
+
+.footer-banner-content {
+  // position: absolute;
+  // top: 0; left: 0; right: 0;
+  background: url(/bg/conactUs_bg.png) 100% 100% no-repeat;
+  height: 450px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+  color: #fff;
+  text-align: center;
+  pointer-events: none;
+  margin-bottom: 40px;
+}
+.footer-banner-title {
+  font-size: 2.6rem;
+  font-weight: bold;
+  margin-bottom: 18px;
+  letter-spacing: 2px;
+}
+.footer-banner-subtitle {
+  font-size: 1.1rem;
+  margin-bottom: 28px;
+  color: #eee;
+}
+.footer-search {
+  display: flex;
+  gap: 0;
+  pointer-events: auto;
+}
+.footer-search input {
+  padding: 12px 18px;
+  border: none;
+  border-radius: 8px 0 0 8px;
+  font-size: 1.1rem;
+  outline: none;
+  width: 220px;
+}
+.footer-search button {
+  padding: 12px 28px;
+  border: none;
+  border-radius: 0 8px 8px 0;
+  background: #222;
+  color: #fff;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.footer-search button:hover {
+  background: #b48be4;
 }

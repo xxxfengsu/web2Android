@@ -4,9 +4,19 @@ import './ConactUs.less';
 export default function ConactUs() {
   return (
     <footer className="footer">
+      <div className="footer-banner-content">
+        <h2 className="footer-banner-title">我们负责点燃才华 你们负责照亮时代</h2>
+        <div className="footer-banner-subtitle">
+          We are responsible for igniting talent; you are responsible for illuminating the times..
+        </div>
+        <form className="footer-search">
+          <input type="text" placeholder="华星璀璨" />
+          <button type="submit">搜索</button>
+        </form>
+      </div>
       <div className="footer-main">
         <div className="footer-brand">
-          <img src="/logoWithTitle.png" alt="logo" className="footer-logo" />
+          <img src="/logoWithTitleWhiteTxt.png" alt="logo" className="footer-logo" />
           <p>
             Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since.
           </p>
