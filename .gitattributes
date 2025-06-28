@@ -1,0 +1,19 @@
+
+*.less linguist-detectable=false
+
+
+*.ejs linguist-language=HTML
+*.tpl linguist-language=HTML
+
+
+assets/** linguist-vendored
+
+
+*.js text eol=lf
+*.ts text eol=lf
+*.json text eol=lf
+
+
+*.png binary
+*.jpg binary
+*.pdf binary
