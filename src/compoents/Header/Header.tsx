@@ -11,7 +11,7 @@ export default function Header() {
   ];
   return <div className="header">
   <div className="header-left">
-    <img src="/public/logoWithTitle.png" alt="logo" className="logo" />
+    <img src="/logoWithTitle.png" alt="logo" className="logo" />
    
   </div>
   <div className="header-center">
