@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Login.less';
+import { login } from '../../api/index'
 
 export default function Login() {
   const [username, setUsername] = useState('');
@@ -8,11 +9,19 @@ export default function Login() {
   const [checked, setChecked] = useState(false);
   const navigate = useNavigate();
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
+    const res = await login({ captchaId: '1', username, password })
+    console.log(res)
+    if (res.code === 0) {
+      const data = res.data as { token: string; user: Record<string, unknown> };
+      localStorage.setItem('token', data.token);
+      localStorage.setItem('user', JSON.stringify(data.user));
+      navigate('/')
+    } else {
+      alert(res.msg)
+     }
     // 登录逻辑
-    localStorage.setItem('token', 'your_token');
-    navigate('/');
   };
 
   return (

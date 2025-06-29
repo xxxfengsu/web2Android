@@ -6,11 +6,11 @@ import Analysis from './analysis/Analysis';
 import { useState } from 'react';
 
 export default function ImageAnalysis() {
-  const [hasReport, setHasReport] = useState(true);
+  const [hasReport, setHasReport] = useState(false);
 
   return <div className="image-analysis">
     <Header />
-    {hasReport ? <Report /> : <Analysis />}
+    {hasReport ? <Report /> : <Analysis setHasReport={setHasReport} />}
     <ConactUs />
   </div>;
 }
