@@ -1,15 +1,37 @@
 import './Analysis.less';
-// import { getReport } from '../../../api/index'
+import { getReport } from '../../../api/index'
+import type { ReportData } from '../report/Report';
+import React, { useState } from 'react';
 
 
-export default function Analysis({ setHasReport }: { setHasReport: (v: boolean) => void }) {
+export default function Analysis({
+  setHasReport,
+  setReportData,
+}: {
+  setHasReport: (v: boolean) => void;
+  setReportData: (data: ReportData | null) => void;
+}) {
+  const [loading, setLoading] = useState(false);
+
   // 你可以在这里处理文件上传逻辑
   async function handleUpload(e: React.ChangeEvent<HTMLInputElement>) {
     if (e.target.files && e.target.files.length > 0) {
-      // 这里可以做上传处理
-      // const res = await getReport(e.target.files[0]);
-      // console.log(res)
-      setHasReport(true);
+      setLoading(true); // 开始 loading
+      try {
+        const formData = new FormData();
+        formData.append('file', e.target.files[0]);
+        formData.append("cateId", '32');
+        formData.append("personId", '1');
+        const res = await getReport(formData);
+        if (res.code == 0) { 
+          setReportData(res.data as ReportData);
+          setHasReport(true);
+        } else {
+          alert(res.msg);
+        }
+      } finally {
+        setLoading(false); // 结束 loading
+      }
     }
   }
 
@@ -88,6 +110,12 @@ export default function Analysis({ setHasReport }: { setHasReport: (v: boolean) 
           </ul>
         </div>
       </div>
+      {loading && (
+        <div className="global-loading">
+          <div className="loading-spinner"></div>
+          <div className="loading-text">分析中，请稍候...</div>
+        </div>
+      )}
     </div>
   );
 }

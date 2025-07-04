@@ -16,7 +16,11 @@ export interface ApiResponse<T> {
  */
 const service: AxiosInstance = axios.create({
   baseURL: "http://139.224.59.6:8882",
-  timeout: 5000,
+  timeout: 100000,
+  headers: {
+    "Content-Type": "application/json",
+  },
+  withCredentials: true, // 如果需要携带 cookie
 });
 
 /**
@@ -26,7 +30,8 @@ service.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem("token");
     if (token) {
-      config.headers.Authorization = `x-token ${token}`;
+      config.headers["x-token"] = token;
+      // config.headers.Authorization = `x-token ${token}`;
     }
     return config;
   },
