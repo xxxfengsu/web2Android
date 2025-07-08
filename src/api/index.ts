@@ -33,3 +33,10 @@ export function getReport(data: unknown) {
     },
   });
 }
+
+export function getStreamerInfo(person_id: string) {
+  return request({
+    url: `/feishu/StreamerInfo/${person_id}`,
+    method: "get",
+  });
+}

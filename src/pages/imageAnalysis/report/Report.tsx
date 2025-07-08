@@ -98,8 +98,25 @@ export interface ReportData {
   rawData: RawData;
 }
 
-export default function Report({ reportData }: { reportData: ReportData }) {
+export interface StreamerInfoData {
+  AI评级: string;
+  主播ID: string;
+  主播昵称: string;
+  合约: string;
+  培训评分: string;
+  年限: string;
+  时长评分: string;
+  本月时长: string;
+  流水评分: string;
+  签约评分: string;
+  经纪权: string;
+  综合总分: number;
+  运营权: string;
+  运营组别: string;
+}
 
+export default function Report({ reportData, streamerInfo }: { reportData: ReportData, streamerInfo: StreamerInfoData }) {
+  console.log(streamerInfo);
 
   return (
     <div className="report-page">

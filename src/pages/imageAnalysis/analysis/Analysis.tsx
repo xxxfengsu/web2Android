@@ -1,15 +1,18 @@
 import './Analysis.less';
 import { getReport } from '../../../api/index'
-import type { ReportData } from '../report/Report';
+import type { ReportData, StreamerInfoData } from '../report/Report';
 import React, { useState } from 'react';
+import { getStreamerInfo } from '../../../api/index';
 
 
 export default function Analysis({
   setHasReport,
   setReportData,
+  setStreamerInfo,
 }: {
   setHasReport: (v: boolean) => void;
   setReportData: (data: ReportData | null) => void;
+  setStreamerInfo: (data: StreamerInfoData | null) => void;
 }) {
   const [loading, setLoading] = useState(false);
 
@@ -22,6 +25,8 @@ export default function Analysis({
         formData.append('file', e.target.files[0]);
         formData.append("cateId", '32');
         formData.append("personId", '1');
+        const streamerInfo = await getStreamerInfo('1');
+        setStreamerInfo(streamerInfo.data as StreamerInfoData);
         const res = await getReport(formData);
         if (res.code == 0) { 
           setReportData(res.data as ReportData);
