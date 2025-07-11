@@ -116,7 +116,6 @@ export interface StreamerInfoData {
 }
 
 export default function Report({ reportData, streamerInfo }: { reportData: ReportData, streamerInfo: StreamerInfoData }) {
-  console.log(streamerInfo);
 
   return (
     <div className="report-page">
@@ -126,22 +125,33 @@ export default function Report({ reportData, streamerInfo }: { reportData: Repor
         <div className="report-info">
           <h2 className="info-title">基础信息</h2>
           <div className="info-row">
+            <div className="infoColumn">
+
             <div className="info-label">昵称</div>
-            <div className="info-value">车车</div>
-            <div className="info-label">系统ID</div>
-            <div className="info-value">19980214</div>
+            <div className="info-value">{streamerInfo.主播昵称}</div>
+            </div>
+            <div className="infoColumn">
+              <div className="info-label">系统ID</div>
+              <div className="info-value">{streamerInfo.主播ID}</div>
+            </div>
           </div>
           <div className="info-row">
-            <div className="info-label">主播评级</div>
-            <div className="info-value">A</div>
-            <div className="info-label">运营组</div>
-            <div className="info-value">运营组</div>
+            <div className="infoColumn">
+              <div className="info-label">主播评级</div>
+              <div className="info-value">{streamerInfo.AI评级}</div>
+            </div>
+            <div className="infoColumn">
+              <div className="info-label">运营组</div>
+              <div className="info-value">{streamerInfo.运营组别}</div>
+            </div>
           </div>
           <div className="info-row">
-            <div className="info-label">主播标签</div>
-            <div className="info-tags">
-              <span className="tag tag-active">全能型</span>
-              <span className="tag">唱歌</span>
+            <div className="infoColumn">
+              <div className="info-label">主播标签</div>
+              <div className="info-tags">
+                <span className="tag tag-active">{streamerInfo.合约}</span>
+                <span className="tag">{streamerInfo.经纪权}</span>
+              </div>
             </div>
           </div>
           <button className="info-btn">Send Now</button>
