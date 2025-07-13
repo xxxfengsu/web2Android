@@ -3,6 +3,7 @@ import { getReport } from '../../../api/index'
 import type { ReportData, StreamerInfoData } from '../report/Report';
 import React, { useState } from 'react';
 import { getStreamerInfo } from '../../../api/index';
+import BlurBlock from '../../../compoents/BlurBlock/BlurBlock';
 
 
 export default function Analysis({
@@ -117,8 +118,10 @@ export default function Analysis({
       </div>
       {loading && (
         <div className="global-loading">
-          <div className="loading-spinner"></div>
-          <div className="loading-text">分析中，请稍候...</div>
+          <BlurBlock blurStrength={10} style={{ width: '50%', height: '340px' }}>
+            <div className="loading-spinner"></div>
+            <div className="loading-text">正在分析中...</div>
+          </BlurBlock>
         </div>
       )}
     </div>
