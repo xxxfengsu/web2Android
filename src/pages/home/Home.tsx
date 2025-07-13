@@ -35,7 +35,7 @@ export default function Home() {
             <p>
               形象美学分析系统是基于多维度美学理论与数据算法，针对个体特征评估（如五官比例、肤色等）及用户需求（如风格倾好、易通过率等）进行量化评估与风格定位的工具。
             </p>
-            <a className="feature-link" href="#">进入</a>
+            <a className="feature-link" href="/imageAnalysis">进入</a>
           </div>
         </div>
         <div className="feature-card">
