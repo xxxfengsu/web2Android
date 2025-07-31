@@ -44,7 +44,7 @@ export default function Home() {
             <p>
               艺人管理系统整合艺人信息、日程、作品及商业合作等核心数据，通过数字化工具实现全流程高效管理的平台，精准资源对接，优化艺人发展规划，提升管理协作效率与决策科学性。
             </p>
-            <a className="feature-link" href="#">进入</a>
+            <a className="feature-link" href="/artistManagement">进入</a>
           </div>
           <div className="feature-right">
             <img src="/lamp-demo.png" alt="lamp" className="feature-img" />

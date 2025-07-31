@@ -1,0 +1,644 @@
+.artistManagement {
+  min-height: 100vh;
+  background: #f5f5f5;
+}
+
+.artistManagementContent {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.pageTitle {
+  font-size: 24px;
+  font-weight: 600;
+  color: #333;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+// 搜索栏
+.searchBar {
+  display: flex;
+  align-items: center;
+  background: white;
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+
+  .searchIcon {
+    margin-right: 12px;
+    color: #666;
+    font-size: 16px;
+  }
+  input {
+    width: 100%;;
+  }
+
+  .searchInput {
+    flex: 1;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    color: #333;
+
+    &::placeholder {
+      color: #999;
+    }
+  }
+
+  .clearIcon {
+    margin-left: 12px;
+    color: #999;
+    cursor: pointer;
+    font-size: 16px;
+    padding: 4px;
+
+    &:hover {
+      color: #666;
+    }
+  }
+}
+
+// 主要内容区域
+.mainContent {
+  display: flex;
+  gap: 20px;
+  // min-height: 600px;
+  // height: calc(100vh - 200px); // 减去头部和搜索栏的高度
+}
+
+// 左侧导航
+.leftNav {
+  width: 200px;
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  height: fit-content;
+  position: sticky;
+  top: 85px;
+
+  .navItem {
+    display: flex;
+    align-items: center;
+    padding: 12px 16px;
+    margin-bottom: 8px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 14px;
+    color: #666;
+    text-decoration: none;
+
+    &:hover {
+      background: #f0f2f5;
+      color: #333;
+    }
+
+    &.active {
+      background: #e6f7ff;
+      color: #1890ff;
+      font-weight: 500;
+    }
+
+    .navDot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #ccc;
+      margin-right: 12px;
+
+      .active & {
+        background: #1890ff;
+      }
+    }
+  }
+}
+
+// 右侧内容区域
+.rightContent {
+  flex: 1;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+
+  .contentCard {
+    padding: 24px;
+  }
+
+  .contentSection {
+    padding-top: 90px;
+    margin-bottom: 40px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  .contentTitle {
+    font-size: 20px;
+    font-weight: 600;
+    color: #333;
+    text-align: center;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #f0f0f0;
+  }
+}
+
+// 基础信息样式
+.basicInfoContent {
+  .infoSection {
+    display: flex;
+    gap: 40px;
+
+    .infoLeft {
+      flex: 1;
+    }
+
+    .infoRight {
+      width: 200px;
+      text-align: center;
+    }
+  }
+
+  .infoItem {
+    margin-bottom: 16px;
+
+    label {
+      display: block;
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 4px;
+    }
+
+    span {
+      display: block;
+      font-size: 16px;
+      color: #333;
+      font-weight: 500;
+    }
+  }
+
+  .tagsContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+
+    .tag {
+      background: #1890ff;
+      color: white;
+      padding: 4px 12px;
+      border-radius: 16px;
+      font-size: 12px;
+    }
+  }
+
+  .artistPhoto {
+    width: 150px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 1px solid #f0f0f0;
+  }
+}
+
+// 招募记录样式
+.recruitmentContent {
+  .infoSection {
+    display: flex;
+    gap: 40px;
+    margin-bottom: 24px;
+
+    .infoLeft,
+    .infoRight {
+      flex: 1;
+    }
+  }
+
+  .infoItem {
+    margin-bottom: 16px;
+
+    label {
+      display: block;
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 4px;
+    }
+
+    span {
+      display: block;
+      font-size: 16px;
+      color: #333;
+      font-weight: 500;
+    }
+  }
+
+  .auditionVideo {
+    margin-top: 20px;
+
+    label {
+      display: block;
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 8px;
+    }
+
+    img {
+      width: 120px;
+      height: 120px;
+      object-fit: cover;
+      border-radius: 8px;
+      border: 1px solid #f0f0f0;
+    }
+  }
+
+  .shootingRequirements {
+    label {
+      display: block;
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 12px;
+    }
+
+    .requirementsList {
+      .requirementItem {
+        background: #f8f9fa;
+        padding: 12px 16px;
+        border-radius: 8px;
+        margin-bottom: 8px;
+        font-size: 14px;
+        color: #333;
+      }
+    }
+  }
+}
+
+// 运营记录样式
+.operationContent {
+  .infoSection {
+    display: flex;
+    gap: 40px;
+
+    .infoLeft {
+      flex: 1;
+    }
+
+    .infoRight {
+      width: 200px;
+    }
+  }
+
+  .infoGroup {
+    margin-bottom: 24px;
+
+    h4 {
+      font-size: 16px;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid #f0f0f0;
+    }
+  }
+
+  .infoRow {
+    display: flex;
+    gap: 20px;
+
+    .infoColumn {
+      flex: 1;
+    }
+  }
+
+  .infoItem {
+    margin-bottom: 12px;
+
+    label {
+      display: block;
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 4px;
+    }
+
+    span {
+      display: block;
+      font-size: 14px;
+      color: #333;
+      font-weight: 500;
+    }
+  }
+
+  .imageSection {
+    margin-bottom: 20px;
+
+    label {
+      display: block;
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 8px;
+    }
+
+    img {
+      width: 100%;
+      height: 120px;
+      object-fit: cover;
+      border-radius: 8px;
+      border: 1px solid #f0f0f0;
+    }
+  }
+}
+
+// 拍摄记录样式
+.shootingContent {
+  .infoSection {
+    display: flex;
+    gap: 40px;
+    margin-bottom: 24px;
+
+    .infoLeft {
+      flex: 1;
+    }
+
+    .infoRight {
+      width: 200px;
+    }
+  }
+
+  .infoItem {
+    margin-bottom: 16px;
+
+    label {
+      display: block;
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 4px;
+    }
+
+    span {
+      display: block;
+      font-size: 16px;
+      color: #333;
+      font-weight: 500;
+    }
+  }
+
+  .benchmarkContent {
+    label {
+      display: block;
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 8px;
+    }
+
+    img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 8px;
+      border: 1px solid #f0f0f0;
+    }
+  }
+
+  .videoLinks {
+    label {
+      display: block;
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 12px;
+    }
+
+    .linksList {
+      .linkItem {
+        background: #f8f9fa;
+        padding: 12px 16px;
+        border-radius: 8px;
+        margin-bottom: 8px;
+        font-size: 14px;
+        color: #333;
+        word-break: break-all;
+      }
+    }
+  }
+}
+
+// 培训记录样式
+.trainingContent {
+  .infoSection {
+    display: flex;
+    gap: 40px;
+    margin-bottom: 24px;
+
+    .infoLeft,
+    .infoRight {
+      flex: 1;
+    }
+  }
+
+  .infoItem {
+    margin-bottom: 16px;
+
+    label {
+      display: block;
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 4px;
+    }
+
+    span {
+      display: block;
+      font-size: 16px;
+      color: #333;
+      font-weight: 500;
+    }
+  }
+
+  .feedbackSection {
+    label {
+      display: block;
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 12px;
+    }
+
+    .feedbackInputs {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+
+      .feedbackInput {
+        padding: 12px 16px;
+        border: 1px solid #d9d9d9;
+        border-radius: 8px;
+        font-size: 14px;
+        background: #f8f9fa;
+        color: #333;
+      }
+    }
+  }
+}
+
+// 分析记录样式
+.analysisContent {
+  .recordsGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+
+    .recordItem {
+      display: flex;
+      align-items: center;
+      padding: 16px;
+      border: 1px solid #f0f0f0;
+      border-radius: 8px;
+      background: #fafafa;
+
+      .recordAvatar {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-right: 12px;
+      }
+
+      .recordInfo {
+        flex: 1;
+
+        .recordName {
+          font-size: 14px;
+          font-weight: 500;
+          color: #333;
+          margin-bottom: 4px;
+        }
+
+        .recordDate,
+        .recordTime {
+          font-size: 12px;
+          color: #666;
+          margin-bottom: 2px;
+        }
+
+        .recordDownload {
+          font-size: 12px;
+          color: #ff6b35;
+          cursor: pointer;
+          margin-top: 4px;
+
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+  }
+}
+
+// 妆造记录样式
+.makeupContent {
+  .makeupGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+
+    .makeupCard {
+      border: 1px solid #f0f0f0;
+      border-radius: 8px;
+      overflow: hidden;
+      background: white;
+
+      .makeupPhoto {
+        width: 100%;
+        height: 150px;
+        object-fit: cover;
+      }
+
+      .makeupInfo {
+        padding: 12px 16px;
+
+        .makeupArtist {
+          font-size: 14px;
+          color: #333;
+          margin-bottom: 4px;
+        }
+
+        .makeupDateTime {
+          font-size: 12px;
+          color: #666;
+        }
+      }
+
+      .makeupTypeBtn {
+        width: 100%;
+        padding: 8px 16px;
+        background: #666;
+        color: white;
+        border: none;
+        font-size: 12px;
+        cursor: pointer;
+        transition: background 0.3s ease;
+
+        &:hover {
+          background: #555;
+        }
+      }
+    }
+  }
+}
+
+// 流转记录样式
+.transferContent {
+  .transferInfo {
+    text-align: center;
+    padding: 40px;
+    color: #666;
+
+    p {
+      font-size: 16px;
+    }
+  }
+}
+
+// 响应式设计
+@media (max-width: 768px) {
+  .artistManagementContent {
+    padding: 16px;
+  }
+
+  .mainContent {
+    flex-direction: column;
+  }
+
+  .leftNav {
+    width: 100%;
+    order: 2;
+  }
+
+  .rightContent {
+    order: 1;
+  }
+
+  .basicInfoContent .infoSection,
+  .recruitmentContent .infoSection,
+  .operationContent .infoSection,
+  .shootingContent .infoSection,
+  .trainingContent .infoSection {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .operationContent .infoRow {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .analysisContent .recordsGrid,
+  .makeupContent .makeupGrid {
+    grid-template-columns: 1fr;
+  }
+} 

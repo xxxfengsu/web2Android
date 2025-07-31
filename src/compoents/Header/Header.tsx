@@ -16,7 +16,7 @@ export default function Header() {
   const menuRoutes = useMemo(() => [
     '/',
     '/imageAnalysis',
-    '',
+    '/artistManagement',
     '',
     ''
   ], []);
