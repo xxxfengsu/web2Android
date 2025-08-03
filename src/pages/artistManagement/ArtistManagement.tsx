@@ -203,10 +203,6 @@ export default function ArtistManagement() {
     <div className="artistManagement">
       <Header />
       <div className="artistManagementContent">
-        <div className="pageTitle">华星璀璨艺人档案</div>
-        
-       
-
         {/* 主要内容区域 */}
         <div className="mainContent">
           {/* 左侧导航 */}
@@ -230,6 +226,7 @@ export default function ArtistManagement() {
                 key={item.key}
                 className={`navItem ${activeTab === item.key ? 'active' : ''}`}
                 href={`#${item.key}`}
+                onClick={() => setActiveTab(item.key)}
               >
                 <div className="navDot"></div>
                 {item.label}
