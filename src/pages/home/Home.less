@@ -27,6 +27,7 @@
   align-items: flex-start;
   gap: 24px;
   background: transparent;
+  flex-wrap: wrap;
 }
 .center-content {
   width: 80%;
@@ -133,29 +134,178 @@
   letter-spacing: 1px;
 }
 
-@media (max-width: 900px) {
+// 移动端优化 (768px以下)
+@media (max-width: 768px) {
   .center-content {
     flex-direction: column;
-    gap: 24px;
-    max-width: 98vw;
+    width: 95%;
+    gap: 20px;
+    padding: 30px 0;
   }
+  
   .feature-card {
     flex-direction: column;
-    min-height: 0;
+    margin-bottom: 20px;
   }
+  
+  .feature-left, .feature-right {
+    height: 180px;
+  }
+  
+  .feature-img {
+    max-width: 70%;
+    max-height: 140px;
+  }
+  
   .feature-info {
-    padding: 24px 16px;
+    padding: 24px 20px;
   }
+  
+  .feature-info h2 {
+    font-size: 1.3rem;
+    margin-bottom: 12px;
+  }
+  
+  .feature-info p {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin-bottom: 20px;
+  }
+  
+  // 培训管理移动端优化
   .training-content {
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 18px;
+    width: 95%;
+    margin: 30px auto;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    justify-items: center;
   }
   .training-item {
-    width: 44vw;
-    max-width: 180px;
-    min-width: 120px;
+    width: 100%;
+    max-width: 160px;
+    height: 140px;
+    margin-bottom: 0;
+    transition: all 0.3s ease;
+  }
+  .training-item:hover {
+    transform: translateY(-2px) scale(1.02);
+  }
+  .training-item img {
+    width: 48px;
+    height: 48px;
     margin-bottom: 12px;
+  }
+  .training-label {
+    font-size: 0.95rem;
+  }
+  
+  // 案例展示移动端优化
+  .case-content {
+    width: 95%;
+    margin: 30px auto;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    justify-items: center;
+  }
+  .case-item {
+    width: 100%;
+    max-width: 170px;
+    height: 200px;
+    margin-bottom: 0;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(180,139,228,0.10);
+    transition: all 0.3s ease;
+  }
+  .case-item:hover {
+    transform: translateY(-2px) scale(1.02);
+  }
+  .case-img-group, .case-img-placeholder {
+    width: 85%;
+    height: 65%;
+    margin-top: 20px;
+    border-radius: 8px;
+  }
+  .case-fav {
+    top: 12px;
+    right: 12px;
+  }
+  .case-fav img {
+    width: 20px;
+    height: 20px;
+  }
+  .case-label {
+    margin: 12px 0 0 0;
+    font-size: 0.95rem;
+  }
+  
+  // 视觉管理和关于我们移动端优化
+  .visual-content, .about-content {
+    flex-direction: column;
+    padding: 20px 16px;
+    gap: 20px;
+    width: 95%;
+    min-height: unset;
+    margin: 30px auto 40px auto;
+  }
+  .visual-img, .about-img {
+    width: 100%;
+  }
+  .visual-img img, .about-img img {
+    max-width: 100%;
+    max-height: 180px;
+    object-fit: contain;
+    position: static;
+    left: unset;
+    top: unset;
+  }
+  .visual-info, .about-info {
+    width: 100%;
+    align-items: center;
+    text-align: center;
+    padding: 0 20px;
+  }
+  .visual-info h3, .about-info h3 {
+    font-size: 1.2rem;
+  }
+  .visual-info p, .about-info p {
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+}
+
+// 平板端适配 (769px - 1024px)
+@media (min-width: 769px) and (max-width: 1024px) {
+  .center-content {
+    display: flex;
+    width: 90%;
+    gap: 40px;
+    padding: 60px 0 80px 0;
+    flex-direction: row;
+    margin: 0 auto;
+  }
+  .feature-card {
+    flex: 1;
+    min-height: 340px;
+  }
+  .training-content {
+    width: 90%;
+    gap: 20px;
+    justify-content: center;
+  }
+  .training-item {
+    width: 140px;
+    height: 140px;
+  }
+  .case-content {
+    width: 90%;
+    gap: 24px;
+    justify-content: center;
+  }
+  .case-item {
+    width: 280px;
+    height: 360px;
   }
 }
 
@@ -166,6 +316,7 @@
   justify-content: space-between;
   align-items: flex-start;
   gap: 32px;
+  flex-wrap: wrap;
 }
 
 .case-item {
@@ -243,24 +394,7 @@
   font-weight: 500;
 }
 
-@media (max-width: 900px) {
-  .case-content {
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 18px;
-  }
-  .case-item {
-    width: 44vw;
-    max-width: 240px;
-    min-width: 140px;
-    height: 220px;
-    margin-bottom: 12px;
-  }
-  .case-img-group, .case-img-placeholder {
-    height: 60%;
-    margin-top: 24px;
-  }
-}
+
 
 .visual-content, .about-content {
   width: 80%;
@@ -342,20 +476,85 @@
   background: #b48be4;
 }
 
-@media (max-width: 900px) {
-  .visual-content, .about-content {
-    flex-direction: column;
-    padding: 20px 8px;
-    gap: 18px;
-    width: 98vw;
-    min-height: unset;
+// 小屏幕设备优化 (480px以下)
+@media (max-width: 480px) {
+  .center-content {
+    width: 98%;
+    padding: 20px 0 40px 0;
+    gap: 16px;
   }
-  .visual-img img, .about-img img {
-    max-width: 90vw;
-    max-height: 180px;
+  
+  .feature-card {
+    margin-bottom: 16px;
+  }
+  
+  .feature-left, .feature-right {
+    height: 140px;
+  }
+  
+  .feature-img {
+    max-width: 65%;
+    max-height: 100px;
+  }
+  
+  .feature-info {
+    padding: 20px 16px;
+  }
+  
+  .feature-info h2 {
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+  }
+  
+  .feature-info p {
+    font-size: 0.85rem;
+    line-height: 1.4;
+    margin-bottom: 16px;
+  }
+  
+  .feature-link {
+    font-size: 0.9rem;
+  }
+  
+  .training-content {
+    width: 98%;
+    gap: 12px;
+  }
+  .training-item {
+    max-width: 140px;
+    height: 120px;
+  }
+  .training-item img {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 8px;
+  }
+  .training-label {
+    font-size: 0.9rem;
+  }
+  
+  .case-content {
+    width: 98%;
+    gap: 12px;
+  }
+  .case-item {
+    max-width: 150px;
+    height: 180px;
+  }
+  .case-img-group, .case-img-placeholder {
+    width: 88%;
+    height: 60%;
+    margin-top: 16px;
+  }
+  .case-label {
+    font-size: 0.9rem;
+  }
+  
+  .visual-content, .about-content {
+    width: 98%;
+    padding: 16px 12px;
   }
   .visual-info, .about-info {
-    align-items: center;
-    text-align: center;
+    padding: 0 16px;
   }
 }

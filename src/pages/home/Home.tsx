@@ -8,8 +8,8 @@ export default function Home() {
   // 轮播图数据
   const bannerImages = [
     '/bg/LargeBanner.png',
-    // 你可以添加更多图片路径
     '/bg/login_bg.png',
+    // 你可以添加更多图片路径
     // '/bg/banner3.png',
   ];
 
