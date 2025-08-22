@@ -11,6 +11,10 @@ export default function Login() {
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
+    if(!checked) {
+      alert('请先同意用户协议及隐私政策')
+      return
+    }
     const res = await login({ captchaId: '1', username, password })
     console.log(res)
     if (res.code === 0) {
@@ -57,9 +61,9 @@ export default function Login() {
                 <a href="#">《用户协议及隐私政策》</a>
               </label>
             </div>
-            <button type="submit" className="login-btn">Sign In</button>
+            <button type="submit" className="login-btn">登录</button>
           </form>
-          <div className="login-or">Or</div>
+          {/* <div className="login-or">Or</div>
           <div className="login-social">
             <img src="/google.svg" alt="Google" />
             <img src="/apple.svg" alt="Apple" />
@@ -67,7 +71,7 @@ export default function Login() {
           </div>
           <div className="login-register">
             还没有账户？<a href="#">注册</a>
-          </div>
+          </div> */}
         </div>
         <div className="login-image-section">
           <img src="/bg/login_bg.png" alt="login_bg" />

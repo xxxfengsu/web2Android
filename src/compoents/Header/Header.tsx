@@ -13,14 +13,14 @@ export default function Header() {
     '首页',
     '形象分析',
     '艺人管理',
-    '培训管理',
+    '虚拟换装',
     '视觉管理'
   ];
   const menuRoutes = useMemo(() => [
     '/',
     '/imageAnalysis',
     '/artistManagement',
-    '',
+    '/virtualTryOn',
     ''
   ], []);
 

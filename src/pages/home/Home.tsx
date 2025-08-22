@@ -86,28 +86,28 @@ export default function Home() {
           <div className="case-fav">
             <img src="/icon/icon_heart.png" alt="收藏" />
           </div>
-          <div className="case-img-placeholder"></div>
+          <div className="case-img-placeholder"><img src="/home_demo_pic.png"  alt="" /></div>
           <div className="case-label">妆造案例</div>
         </div>
         <div className="case-item">
           <div className="case-fav">
             <img src="/icon/icon_heart.png" alt="收藏" />
           </div>
-          <div className="case-img-placeholder"></div>
+          <div className="case-img-placeholder"><img src="/home_demo_pic.png"  alt="" /></div>
           <div className="case-label">调试案例</div>
         </div>
         <div className="case-item">
           <div className="case-fav">
             <img src="/icon/icon_heart.png" alt="收藏" />
           </div>
-          <div className="case-img-placeholder"></div>
+          <div className="case-img-placeholder"><img src="/home_demo_pic.png"  alt="" /></div>
           <div className="case-label">场景案例</div>
         </div>
         <div className="case-item">
           <div className="case-fav">
             <img src="/icon/icon_heart.png" alt="收藏" />
           </div>
-          <div className="case-img-placeholder"></div>
+          <div className="case-img-placeholder"><img src="/home_demo_pic.png"  alt="" /></div>
           <div className="case-label">成长档案</div>
         </div>
       </div>

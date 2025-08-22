@@ -62,3 +62,97 @@ export function getAnalysisRecords(page: number, pageSize: number = 5) {
     },
   });
 }
+
+/**
+ * 获取素材参数
+ */
+export interface GetClothesParams {
+  cateId?: number; // 服装分类ID (12: 上衣, 13: 下装, 14: 连体)
+  gender?: 'male' | 'female'; // 性别
+  page?: number; // 页码
+  pageSize?: number; // 每页数量
+}
+
+/**
+ * 服装项数据结构
+ */
+export interface ClothingItem {
+  ID: number;
+  CreatedAt: string;
+  UpdatedAt: string;
+  created_by: string;
+  updated_by: string;
+  cateId: number;
+  key: string;
+  md5: string;
+  name: string;
+  tag: string;
+  url: string;
+}
+
+/**
+ * 获取素材响应数据结构
+ */
+export interface GetClothesResponse {
+  code: number;
+  data: {
+    list: ClothingItem[];
+    total: number;
+    page: number;
+    pageSize: number;
+  };
+  msg: string;
+}
+
+/**
+ * 获取素材 API
+ */
+export function getClothes(data: GetClothesParams) {
+  return request({
+    url: "/fileUploadAndDownload/getFileList",
+    method: "post",
+    data,
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+}
+
+/**
+ * 虚拟换装请求参数
+ */
+export interface VirtualTryOnParams {
+  personImageUrl: string; // 必需：人物图片URL
+  topGarmentUrl?: string; // 可选：上衣图片URL
+  bottomGarmentUrl?: string; // 可选：下装图片URL
+  dressOrJumpsuit?: boolean; // 可选：是否为连衣裙/连体衣，默认false
+  preserveOtherClothes?: boolean; // 可选：是否保留其他衣物，默认true
+}
+
+/**
+ * 虚拟换装响应数据结构
+ */
+export interface VirtualTryOnResponse {
+  code: number;
+  data: {
+    TryonType: string; // 试穿类型，如"试穿连衣裙/连体服"
+    imageUrl: string; // 换装结果图片URL
+    processTime: number; // 处理时间（毫秒）
+    taskId: string; // 任务ID
+  };
+  msg: string;
+}
+
+/**
+ * 虚拟换装 API
+ */
+export function virtualTryOn(data: VirtualTryOnParams) {
+  return request({
+    url: "/tryon/clothes/aliyun/basics",
+    method: "post",
+    data,
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+}
