@@ -38,6 +38,7 @@ export default function Analysis({
     const saved = localStorage.getItem('selectedAnalysisType');
     return saved === 'face' || saved === 'body' ? saved : null;
   });
+  const [streamerId, setStreamerId] = useState<string>('');
 
   // 历史记录相关状态
   const [historyRecords, setHistoryRecords] = useState<HistoryRecord[]>([]);
@@ -118,26 +119,41 @@ export default function Analysis({
 
 
 
-  // 你可以在这里处理文件上传逻辑
+  // 处理文件上传逻辑
   async function handleUpload(e: React.ChangeEvent<HTMLInputElement>) {
     if (!selectedAnalysisType) {
       alert('请先选择分析类型');
       return;
     }
     
+    if (!streamerId.trim()) {
+      alert('请输入主播ID');
+      return;
+    }
+    
     if (e.target.files && e.target.files.length > 0) {
       setLoading(true); // 开始 loading
       try {
+        // 首先获取主播信息
+        const streamerResponse = await getStreamerInfo(streamerId.trim());
+        
+        // 检查接口返回状态
+        if (streamerResponse.code !== 0 || !streamerResponse.data) {
+          alert(`获取主播信息失败：${streamerResponse.msg || '主播不存在或ID无效'}`);
+          return;
+        }
+        
+        // 设置主播信息
+        setStreamerInfo(streamerResponse.data as StreamerInfoData);
+        
         const formData = new FormData();
         formData.append('file', e.target.files[0]);
         formData.append("cateId", selectedAnalysisType === 'face' ? '32' : '33'); // 根据分析类型设置不同的cateId
-        formData.append("personId", '1');
+        formData.append("personId", streamerId.trim());
         formData.append("analysisType", selectedAnalysisType); // 添加分析类型参数
         if (selectedAnalysisType !== 'face') { 
           formData.append("provider", "bailian");
         }
-        const streamerInfo = await getStreamerInfo('1');
-        setStreamerInfo(streamerInfo.data as StreamerInfoData);
         
         // 根据分析类型选择不同的API
         const res = selectedAnalysisType === 'face' 
@@ -155,6 +171,9 @@ export default function Analysis({
         } else {
           alert(res.msg);
         }
+      } catch (error) {
+        console.error('获取主播信息或分析失败:', error);
+        alert('获取主播信息失败，请检查主播ID是否正确');
       } finally {
         setLoading(false); // 结束 loading
       }
@@ -207,19 +226,39 @@ export default function Analysis({
              <div className="type-card-label">身材分析</div>
            </div>
         </div>
+        
+        {/* 主播ID输入框 */}
+        {selectedAnalysisType && (
+          <div className="streamer-input-section">
+            <label className="streamer-input-label">主播ID</label>
+            <input
+              type="text"
+              className="streamer-input"
+              placeholder="请输入主播ID"
+              value={streamerId}
+              onChange={(e) => setStreamerId(e.target.value)}
+            />
+          </div>
+        )}
+        
         <label 
-          className={`analysis-upload ${!selectedAnalysisType ? 'disabled' : ''}`} 
-          style={{ cursor: selectedAnalysisType ? 'pointer' : 'not-allowed' }}
+          className={`analysis-upload ${!selectedAnalysisType || !streamerId.trim() ? 'disabled' : ''}`} 
+          style={{ cursor: (selectedAnalysisType && streamerId.trim()) ? 'pointer' : 'not-allowed' }}
         >
           <input
             type="file"
             accept="image/*"
             style={{ display: 'none' }}
             onChange={handleUpload}
-            disabled={!selectedAnalysisType}
+            disabled={!selectedAnalysisType || !streamerId.trim()}
           />
           <span className="upload-plus">
-            {selectedAnalysisType ? `上传图片进行${selectedAnalysisType === 'face' ? '面部分析' : '身材分析'}` : '请先选择分析类型'}
+            {!selectedAnalysisType 
+              ? '请先选择分析类型' 
+              : !streamerId.trim() 
+                ? '请输入主播ID' 
+                : `上传图片进行${selectedAnalysisType === 'face' ? '面部分析' : '身材分析'}`
+            }
           </span>
         </label>
         <div className="analysis-section-title">

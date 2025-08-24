@@ -295,87 +295,88 @@
   gap: 48px;
 }
 
+/* 新增：比例分析块与五官量感一致的布局守则 */
 .proportion-block {
   background: #fafafa;
   border-radius: 12px;
   box-shadow: 0 2px 16px rgba(180,139,228,0.06);
-  padding: 32px 40px;
-  margin-bottom: 32px;
+  padding: 24px;
+  margin-bottom: 24px;
+  box-sizing: border-box;
 }
-
 .proportion-row {
   display: flex;
   align-items: flex-start;
-  gap: 48px;
-  margin-bottom: 18px;
+  gap: 24px;
+  margin-bottom: 16px;
 }
-
+.proportion-img {
+  flex: 0 0 160px;
+}
 .proportion-img img {
-  width: 180px;
-  height: 220px;
+  width: 160px;
+  height: 200px;
   object-fit: cover;
   border-radius: 12px;
   background: #f5f6fa;
   box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
-
 .proportion-info {
+  flex: 1;
   background: #f5f6fa;
   border-radius: 10px;
-  padding: 24px 32px;
-  font-size: 1.12rem;
+  padding: 18px 20px;
+  font-size: 15px;
   color: #222;
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  min-width: 320px;
-  line-height: 1.7;
+  gap: 8px;
+  line-height: 1.8;
+  overflow: hidden;
 }
-
-.proportion-demo {
-  margin-top: 18px;
-}
-.proportion-demo-title {
-  font-size: 1.05rem;
-  color: #888;
-  margin-bottom: 8px;
-}
-.proportion-demo-imgs {
+/* 三庭建议图容器：不允许溢出父容器 */
+.proportion-advice-images {
   display: flex;
-  justify-content: center;
-  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
   width: 100%;
-  height: 200px;
-  img {
-    width: 100%;
-    height: auto;
-    border-radius: 10px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-    background: #f7f7f7;
-  }
+  box-sizing: border-box;
 }
-.proportion-arrow {
-  font-size: 2rem;
-  color: #bbb;
+.advice-image-item {
+  flex: 1 1 260px;
+  max-width: 100%;
+}
+.advice-image-item img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+.advice-image-title {
+  font-weight: 600;
+  font-size: 14px;
+  color: #555;
+  margin: 6px 0 8px 2px;
+}
+/* 三庭建议文本块 */
+.three-part-advice .advice-title {
+  font-weight: 600;
+  color: #555;
+  margin-top: 6px;
+}
+.three-part-advice .advice-line {
+  color: #444;
 }
 
 @media (max-width: 900px) {
-  .proportion-block {
-    padding: 16px 8px;
-  }
   .proportion-row {
     flex-direction: column;
-    gap: 18px;
+    gap: 16px;
   }
-  .proportion-info {
-    padding: 12px 8px;
-    min-width: unset;
-    font-size: 1rem;
-  }
-  .proportion-img img {
-    width: 120px;
-    height: 150px;
-  }
+  .proportion-img { flex: 0 0 auto; }
+  .proportion-img img { width: 120px; height: 150px; }
+  .proportion-info { padding: 12px; }
 }
 
 .feature-types-block {
