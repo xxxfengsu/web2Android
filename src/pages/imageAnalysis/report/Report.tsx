@@ -133,20 +133,28 @@ export interface BodyReportData {
 }
 
 export interface StreamerInfoData {
-  AI评级: string;
-  主播ID: string;
-  主播昵称: string;
-  合约: string;
-  培训评分: string;
-  年限: string;
-  时长评分: string;
-  本月时长: string;
-  流水评分: string;
-  签约评分: string;
-  经纪权: string;
-  综合总分: number;
-  运营权: string;
-  运营组别: string;
+  account_status: string; // 账号状态：线上/线下/...
+  agent: string; // 经纪权
+  ai_rating: string; // 扩展字段（来自飞书表格其他中文字段）
+  avatar_url: string; // 头像链接
+  contract: string; // 合约
+  duration_score: number; // 时长评分
+  height_cm: number; // 身高（cm）
+  monthly_duration: string; // 本月时长（字符串，如 6天/25小时30分）
+  monthly_valid_days: number; // 本月有效天（天数）
+  nickname: string; // 主播昵称
+  operation_group: string; // 运营组别
+  operator: string; // 运营权（如：线下一组——某某某）
+  real_name: string; // 真实姓名
+  revenue_score: number; // 流水评分
+  signing_score: number; // 签约评分
+  streamer_id: string; // 主播ID
+  tags: string[]; // 主播标签（多值）
+  tenure: string; // 年限（字符串描述）
+  total_score: number; // 综合总分
+  track: string; // 主播赛道，如：唱歌(流行)
+  training_score: number; // 培训评分
+  weight_kg: number; // 体重（kg）
 }
 
 function SectionTitle({ title }: { title: string }) {
@@ -178,6 +186,14 @@ export default function Report({ reportData, streamerInfo }: { reportData: Repor
     }, 150);
   }, []);
 
+  // 面部分析数据便捷引用（仅在非身体分析时使用）
+  const faceRaw = !isBodyAnalysis ? (reportData as ReportData).rawData : undefined;
+  const threePart = faceRaw?.three_part_analysis;
+  const onePartUrl = threePart?.one_part?.advice_image_url;
+  const twoPartUrl = threePart?.two_part?.advice_image_url;
+  const threePartUrl = threePart?.three_part?.advice_image_url;
+  const hasThreeGlobalAdvice = !!(threePart?.advice && threePart.advice.some(line => line && line.trim()));
+
   return (
     <div className="report-page">
       <h1 className="report-title">
@@ -193,29 +209,29 @@ export default function Report({ reportData, streamerInfo }: { reportData: Repor
           <div className="info-row">
             <div className="infoColumn">
               <div className="info-label">昵称</div>
-              <div className="info-value">{streamerInfo.主播昵称}</div>
+              <div className="info-value">{streamerInfo.nickname}</div>
             </div>
             <div className="infoColumn">
               <div className="info-label">系统ID</div>
-              <div className="info-value">{streamerInfo.主播ID}</div>
+              <div className="info-value">{streamerInfo.streamer_id}</div>
             </div>
           </div>
           <div className="info-row">
             <div className="infoColumn">
               <div className="info-label">主播评级</div>
-              <div className="info-value">{streamerInfo.AI评级}</div>
+              <div className="info-value">{streamerInfo.ai_rating}</div>
             </div>
             <div className="infoColumn">
               <div className="info-label">运营组</div>
-              <div className="info-value">{streamerInfo.运营组别}</div>
+              <div className="info-value">{streamerInfo.operation_group}</div>
             </div>
           </div>
           <div className="info-row">
             <div className="infoColumn">
               <div className="info-label">主播标签</div>
               <div className="info-tags">
-                <span className="tag tag-active">{streamerInfo.合约}</span>
-                <span className="tag">{streamerInfo.经纪权}</span>
+                <span className="tag tag-active">{streamerInfo.contract}</span>
+                <span className="tag">{streamerInfo.agent}</span>
               </div>
             </div>
           </div>
@@ -321,53 +337,90 @@ export default function Report({ reportData, streamerInfo }: { reportData: Repor
           
           <div className="report-card flex_column">
             <SectionTitle title="比例分析" />
-            <div className="proportion-section">
-              {/* 三庭比例分析 */}
-              <div className="proportion-block">
-                <div className="proportion-row">
-                  <div className="proportion-img">
-                    <img src={(reportData as ReportData).rawData.three_part_analysis.result_image_url} alt="三庭比例" />
-                  </div>
-                  <div className="proportion-info">
-                    <div>三庭比例：{(reportData as ReportData).rawData.three_part_analysis.ratios}</div>
-                    {(reportData as ReportData).rawData.three_part_analysis.advice && (reportData as ReportData).rawData.three_part_analysis.advice.map((line, i) => (
-                      <div key={i}>{line}</div>
-                    ))}
-                  </div>
+            {/* 三庭比例分析 */}
+            <div className="proportion-block">
+              <div className="proportion-row">
+                <div className="proportion-img">
+                  <img src={(reportData as ReportData).rawData.three_part_analysis.result_image_url} alt="三庭比例" />
                 </div>
-                <div className="proportion-demo">
-                  <div className="proportion-demo-title">画法示例：</div>
-                  <div className="proportion-demo-imgs">
-                    <img
-                      src={(reportData as ReportData).rawData.three_part_analysis.normal_image_url}
-                      alt="三庭画法示例"
-                    />
-                  </div>
+                <div className="proportion-info">
+                  <div>三庭比例：{(reportData as ReportData).rawData.three_part_analysis.ratios}</div>
+                  {/* 三庭分析建议内容（优先展示外层整体建议） */}
+                  {hasThreeGlobalAdvice ? (
+                    <div className="three-part-advice">
+                      <div className="advice-title">三庭整体建议：</div>
+                      {threePart!.advice.filter(line => line && line.trim()).map((line, i) => (
+                        <div key={i} className="advice-line">{line}</div>
+                      ))}
+                    </div>
+                  ) : (
+                    <>
+                      {threePart?.one_part?.advice && threePart.one_part.advice.length > 0 && threePart.one_part.advice[0] && (
+                        <div className="three-part-advice">
+                          <div className="advice-title">上庭建议：</div>
+                          {threePart.one_part.advice.filter(line => line.trim()).map((line, i) => (
+                            <div key={i} className="advice-line">{line}</div>
+                          ))}
+                        </div>
+                      )}
+                      {threePart?.two_part?.advice && threePart.two_part.advice.length > 0 && threePart.two_part.advice[0] && (
+                        <div className="three-part-advice">
+                          <div className="advice-title">中庭建议：</div>
+                          {threePart.two_part.advice.filter(line => line.trim()).map((line, i) => (
+                            <div key={i} className="advice-line">{line}</div>
+                          ))}
+                        </div>
+                      )}
+                      {threePart?.three_part?.advice && threePart.three_part.advice.length > 0 && threePart.three_part.advice[0] && (
+                        <div className="three-part-advice">
+                          <div className="advice-title">下庭建议：</div>
+                          {threePart.three_part.advice.filter(line => line.trim()).map((line, i) => (
+                            <div key={i} className="advice-line">{line}</div>
+                          ))}
+                        </div>
+                      )}
+                    </>
+                  )}
                 </div>
               </div>
-              {/* 五眼比例分析 */}
-              <div className="proportion-block">
-                <div className="proportion-row">
-                  <div className="proportion-img">
-                    <img src={(reportData as ReportData).rawData.five_eyes_analysis.result_image_url} alt="五眼比例" />
-                  </div>
-                  <div className="proportion-info">
-                    <div>五眼比例：{(reportData as ReportData).rawData.five_eyes_analysis.ratios}</div>
-                    {(reportData as ReportData).rawData.five_eyes_analysis.advice && (reportData as ReportData).rawData.five_eyes_analysis.advice.map((line, i) => (
-                      <div key={i}>{line}</div>
-                    ))}
-                  </div>
+              {/* 三庭分部建议图（有图则展示） */}
+              {(onePartUrl || twoPartUrl || threePartUrl) && (
+                <div className="proportion-advice-images">
+                  {onePartUrl && (
+                    <div className="advice-image-item">
+                      <div className="advice-image-title">{threePart?.one_part?.result_name || '上庭'}</div>
+                      <img src={onePartUrl} alt="上庭建议图" />
+                    </div>
+                  )}
+                  {twoPartUrl && (
+                    <div className="advice-image-item">
+                      <div className="advice-image-title">{threePart?.two_part?.result_name || '中庭'}</div>
+                      <img src={twoPartUrl} alt="中庭建议图" />
+                    </div>
+                  )}
+                  {threePartUrl && (
+                    <div className="advice-image-item">
+                      <div className="advice-image-title">{threePart?.three_part?.result_name || '下庭'}</div>
+                      <img src={threePartUrl} alt="下庭建议图" />
+                    </div>
+                  )}
                 </div>
-                <div className="proportion-demo">
-                  <div className="proportion-demo-title">画法示例：</div>
-                  <div className="proportion-demo-imgs">
-                    <img
-                      src={(reportData as ReportData).rawData.five_eyes_analysis.image_url}
-                      alt="五眼画法示例"
-                    />
-                  </div>
+              )}
+            </div>
+            {/* 五眼比例分析 */}
+            <div className="proportion-block">
+              <div className="proportion-row">
+                <div className="proportion-img">
+                  <img src={(reportData as ReportData).rawData.five_eyes_analysis.result_image_url} alt="五眼比例" />
+                </div>
+                <div className="proportion-info">
+                  <div>五眼比例：{(reportData as ReportData).rawData.five_eyes_analysis.ratios}</div>
+                  {(reportData as ReportData).rawData.five_eyes_analysis.advice && (reportData as ReportData).rawData.five_eyes_analysis.advice.map((line, i) => (
+                    <div key={i}>{line}</div>
+                  ))}
                 </div>
               </div>
+              {/* 五眼画法示例已移除（后端不返回该字段） */}
             </div>
           </div>
           
@@ -378,7 +431,6 @@ export default function Report({ reportData, streamerInfo }: { reportData: Repor
                 <img src={(reportData as ReportData).rawData.facial_density.result_image_url} alt="五官量感" />
               </div>
               <div className="facial-density-info">
-                <div className="density-main">{(reportData as ReportData).rawData.facial_density.result}</div>
                 <div className="density-name">{(reportData as ReportData).rawData.facial_density.result_name}</div>
                             <div className="density-advice">
               {(reportData as ReportData).rawData.facial_density.advice && (reportData as ReportData).rawData.facial_density.advice.map((line, i) => (
@@ -399,13 +451,15 @@ export default function Report({ reportData, streamerInfo }: { reportData: Repor
                     {/* <img src={value.advice_image_url} alt={value.result_name} /> */}
                   </div>
                   <div className="feature-type-info">
+                    {/* 仅展示中文名称，隐藏英文编码 */}
                     <div className="feature-type-name">{value.result_name}</div>
-                    <div className="feature-type-result">{value.result}</div>
-                                      <div className="feature-type-advice">
-                    {value.advice && value.advice.map((line: string, i: number) => (
-                      <div key={i}>{line}</div>
-                    ))}
-                  </div>
+                    {value.advice && (
+                      <div className="feature-type-advice">
+                        {value.advice.map((line: string, i: number) => (
+                          <div key={i}>{line}</div>
+                        ))}
+                      </div>
+                    )}
                   </div>
                 </div>
               ))}

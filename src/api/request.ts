@@ -12,10 +12,19 @@ export interface ApiResponse<T> {
 }
 
 /**
+ * 获取API基础URL（优先使用 Vite .env 注入的变量）
+ */
+const getApiBaseURL = (): string => {
+  const envValue = (import.meta as any).env?.VITE_API_BASE_URL as string | undefined;
+  if (envValue) return envValue;
+  return 'http://localhost:8881';
+};
+
+/**
  * 创建 axios 实例
  */
 const service: AxiosInstance = axios.create({
-  baseURL: "http://139.224.59.6:8882",
+  baseURL: getApiBaseURL(),
   timeout: 100000,
   headers: {
     "Content-Type": "application/json",
