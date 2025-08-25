@@ -52,6 +52,29 @@ export function getStreamerInfo(person_id: string) {
   });
 }
 
+/**
+ * 历史记录项类型定义
+ */
+export interface AnalysisRecord {
+  UpdatedAt: string;
+  personId: string;
+  imageUrl: string;
+  fileUrl?: string;
+  cateId?: number;
+  rawData?: any;
+}
+
+/**
+ * 历史记录响应类型
+ */
+export interface AnalysisRecordsResponse {
+  code: number;
+  data: {
+    list: AnalysisRecord[];
+  };
+  msg: string;
+}
+
 export function getAnalysisRecords(page: number, pageSize: number = 5) {
   return request({
     url: "/analysis/record/getList",

@@ -1,23 +1,11 @@
 import './Analysis.less';
 import { getReport, getBodyReport, getAnalysisRecords } from '../../../api/index'
 import type { ReportData, BodyReportData, StreamerInfoData } from '../report/Report';
+import type { AnalysisRecord, AnalysisRecordsResponse } from '../../../api/index';
 
-// 历史记录项类型定义
-interface HistoryRecord {
-  UpdatedAt: string;
-  personId: string;
-  imageUrl: string;
-  fileUrl?: string;
-}
-
-// 接口返回数据类型
-interface HistoryResponse {
-  code: number;
-  data: {
-    list: HistoryRecord[];
-  };
-  msg: string;
-}
+// 使用API中定义的类型
+type HistoryRecord = AnalysisRecord;
+type HistoryResponse = AnalysisRecordsResponse;
 import React, { useState, useEffect } from 'react';
 import { getStreamerInfo } from '../../../api/index';
 import BlurBlock from '../../../compoents/BlurBlock/BlurBlock';
@@ -96,26 +84,45 @@ export default function Analysis({
     }
   };
 
-  // 下载文件
-  const handleDownload = (fileUrl?: string) => {
-    if (!fileUrl) {
-      alert('没有文件可查看');
+  // 查看历史记录
+  const handleViewHistory = async (record: HistoryRecord) => {
+    if (!record.rawData) {
+      alert('没有数据可查看');
       return;
     }
 
-    // 创建一个临时的 a 标签来触发下载
-    const link = document.createElement('a');
-    link.href = fileUrl;
-    link.download = `分析报告_${new Date().toISOString().split('T')[0]}.pdf`;
-    link.target = '_blank';
-    
-    // 添加到 DOM 中并触发点击
-    document.body.appendChild(link);
-    link.click();
-    
-    // 清理 DOM
-    document.body.removeChild(link);
+    try {
+      // 首先获取主播信息
+      const streamerResponse = await getStreamerInfo(record.personId);
+      
+      // 检查接口返回状态
+      if (streamerResponse.code !== 0 || !streamerResponse.data) {
+        alert(`获取主播信息失败：${streamerResponse.msg || '主播不存在或ID无效'}`);
+        return;
+      }
+      
+      // 设置主播信息
+      setStreamerInfo(streamerResponse.data as StreamerInfoData);
+
+      // 根据cateId判断分析类型并跳转到对应的report
+      if (record.cateId === 34) {
+        // 面部分析
+        setReportData(record as ReportData);
+        setHasReport(true);
+      } else if (record.cateId === 35) {
+        // 身材分析
+        setReportData(record as BodyReportData);
+        setHasReport(true);
+      } else {
+        alert('未知的分析类型');
+      }
+    } catch (error) {
+      console.error('获取主播信息失败:', error);
+      alert('获取主播信息失败，请检查主播ID是否正确');
+    }
   };
+
+
 
 
 
@@ -300,7 +307,7 @@ export default function Analysis({
                        <div className="history-date">{formattedDate}</div>
                        <div 
                          className="history-download"
-                         onClick={() => handleDownload(item.fileUrl)}
+                         onClick={() => handleViewHistory(item)}
                        >
                          查看
                        </div>

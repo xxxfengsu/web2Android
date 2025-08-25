@@ -169,7 +169,7 @@ function SectionTitle({ title }: { title: string }) {
 
 export default function Report({ reportData, streamerInfo }: { reportData: ReportData | BodyReportData, streamerInfo: StreamerInfoData }) {
   // 检查是否为身体分析数据
-  const isBodyAnalysis = 'rawData' in reportData && 'body_type' in reportData.rawData;
+  const isBodyAnalysis = 'rawData' in reportData && reportData.rawData && 'body_type' in reportData.rawData;
 
   // 组件挂载时滚动到页面顶部
   useEffect(() => {
@@ -243,10 +243,10 @@ export default function Report({ reportData, streamerInfo }: { reportData: Repor
       </div>
       
       {/* 风格参考 - 只在面部分析时显示 */}
-      {!isBodyAnalysis && (reportData as ReportData).rawData.style_reference_list && (
+      {!isBodyAnalysis && (reportData as ReportData).rawData?.style_reference_list && (
         <div className="report-card flex_column">
           <SectionTitle title="风格参考" />
-          {(reportData as ReportData).rawData.style_reference_list.map((item, idx) => (
+                             {(reportData as ReportData).rawData?.style_reference_list?.map((item, idx) => (
             <div className="style-ref-card" key={idx}>
               <div className="style-ref-left">
                 <img className="style-ref-img" src={item.imageUrl} alt="风格参考" />
@@ -273,17 +273,17 @@ export default function Report({ reportData, streamerInfo }: { reportData: Repor
           <div className="body-analysis-content">
             <div className="body-analysis-item">
               <h3>体型类型</h3>
-              <p>{(reportData as BodyReportData).rawData.body_type.body_type}</p>
-              {(reportData as BodyReportData).rawData.body_type.features && (
+              <p>{(reportData as BodyReportData).rawData?.body_type?.body_type}</p>
+              {(reportData as BodyReportData).rawData?.body_type?.features && (
                 <ul>
-                  {(reportData as BodyReportData).rawData.body_type.features.map((feature, idx) => (
+                  {(reportData as BodyReportData).rawData?.body_type?.features?.map((feature, idx) => (
                     <li key={idx}>{feature}</li>
                   ))}
                 </ul>
               )}
-              {(reportData as BodyReportData).rawData.body_type.image_url && (
+              {(reportData as BodyReportData).rawData?.body_type?.image_url && (
                 <div className="body-analysis-image">
-                  <img src={(reportData as BodyReportData).rawData.body_type.image_url} alt="体型类型" />
+                  <img src={(reportData as BodyReportData).rawData?.body_type?.image_url} alt="体型类型" />
                 </div>
               )}
             </div>
@@ -291,23 +291,23 @@ export default function Report({ reportData, streamerInfo }: { reportData: Repor
             <div className="body-analysis-item">
               <h3>身材比例</h3>
               <div className="body-proportion-details">
-                <p>头身比：{(reportData as BodyReportData).rawData.body_proportion.head_to_body}</p>
-                <p>头肩比：{(reportData as BodyReportData).rawData.body_proportion.head_to_shoulders}</p>
-                <p>上下身比：{(reportData as BodyReportData).rawData.body_proportion.upper_to_lower_body}</p>
-                <p>腰臀比：{(reportData as BodyReportData).rawData.body_proportion.waist_to_hip_ratio}</p>
+                <p>头身比：{(reportData as BodyReportData).rawData?.body_proportion?.head_to_body}</p>
+                <p>头肩比：{(reportData as BodyReportData).rawData?.body_proportion?.head_to_shoulders}</p>
+                <p>上下身比：{(reportData as BodyReportData).rawData?.body_proportion?.upper_to_lower_body}</p>
+                <p>腰臀比：{(reportData as BodyReportData).rawData?.body_proportion?.waist_to_hip_ratio}</p>
               </div>
-              {(reportData as BodyReportData).rawData.body_proportion.image_url && (
+              {(reportData as BodyReportData).rawData?.body_proportion?.image_url && (
                 <div className="body-analysis-image">
-                  <img src={(reportData as BodyReportData).rawData.body_proportion.image_url} alt="身材比例" />
+                  <img src={(reportData as BodyReportData).rawData?.body_proportion?.image_url} alt="身材比例" />
                 </div>
               )}
             </div>
             
             <div className="body-analysis-item">
               <h3>穿搭建议</h3>
-              {(reportData as BodyReportData).rawData.advice && (
+              {(reportData as BodyReportData).rawData?.advice && (
                 <ul>
-                  {(reportData as BodyReportData).rawData.advice.map((advice, idx) => (
+                                     {(reportData as BodyReportData).rawData?.advice?.map((advice, idx) => (
                     <li key={idx}>{advice}</li>
                   ))}
                 </ul>
@@ -324,13 +324,13 @@ export default function Report({ reportData, streamerInfo }: { reportData: Repor
             <SectionTitle title="皮肤分析" />
             <div className="flex_row skin-analysis-card">
               <div className="skin-analysis-img">
-                <img src={(reportData as ReportData).rawData.skin_analysis.result_image_url} alt="皮肤分析" />
+                <img src={(reportData as ReportData).rawData?.skin_analysis?.result_image_url} alt="皮肤分析" />
               </div>
               <div className="skin-analysis-info">
-                <div>皮肤类型：{(reportData as ReportData).rawData.skin_analysis.skin_type.result_name}</div>
-                <div>有无斑点：{(reportData as ReportData).rawData.skin_analysis.skin_spot.result_name}</div>
-                <div>有无痘痘：{(reportData as ReportData).rawData.skin_analysis.acne.result_name}</div>
-                <div>有无法令纹：{(reportData as ReportData).rawData.skin_analysis.nasolabial_fold.result_name}</div>
+                <div>皮肤类型：{(reportData as ReportData).rawData?.skin_analysis?.skin_type?.result_name}</div>
+                <div>有无斑点：{(reportData as ReportData).rawData?.skin_analysis?.skin_spot?.result_name}</div>
+                <div>有无痘痘：{(reportData as ReportData).rawData?.skin_analysis?.acne?.result_name}</div>
+                <div>有无法令纹：{(reportData as ReportData).rawData?.skin_analysis?.nasolabial_fold?.result_name}</div>
               </div>
             </div>
           </div>
@@ -341,10 +341,10 @@ export default function Report({ reportData, streamerInfo }: { reportData: Repor
             <div className="proportion-block">
               <div className="proportion-row">
                 <div className="proportion-img">
-                  <img src={(reportData as ReportData).rawData.three_part_analysis.result_image_url} alt="三庭比例" />
+                  <img src={(reportData as ReportData).rawData?.three_part_analysis?.result_image_url} alt="三庭比例" />
                 </div>
                 <div className="proportion-info">
-                  <div>三庭比例：{(reportData as ReportData).rawData.three_part_analysis.ratios}</div>
+                  <div>三庭比例：{(reportData as ReportData).rawData?.three_part_analysis?.ratios}</div>
                   {/* 三庭分析建议内容（优先展示外层整体建议） */}
                   {hasThreeGlobalAdvice ? (
                     <div className="three-part-advice">
@@ -411,11 +411,11 @@ export default function Report({ reportData, streamerInfo }: { reportData: Repor
             <div className="proportion-block">
               <div className="proportion-row">
                 <div className="proportion-img">
-                  <img src={(reportData as ReportData).rawData.five_eyes_analysis.result_image_url} alt="五眼比例" />
+                  <img src={(reportData as ReportData).rawData?.five_eyes_analysis?.result_image_url} alt="五眼比例" />
                 </div>
                 <div className="proportion-info">
-                  <div>五眼比例：{(reportData as ReportData).rawData.five_eyes_analysis.ratios}</div>
-                  {(reportData as ReportData).rawData.five_eyes_analysis.advice && (reportData as ReportData).rawData.five_eyes_analysis.advice.map((line, i) => (
+                  <div>五眼比例：{(reportData as ReportData).rawData?.five_eyes_analysis?.ratios}</div>
+                                     {(reportData as ReportData).rawData?.five_eyes_analysis?.advice && (reportData as ReportData).rawData?.five_eyes_analysis?.advice.map((line, i) => (
                     <div key={i}>{line}</div>
                   ))}
                 </div>
@@ -428,12 +428,12 @@ export default function Report({ reportData, streamerInfo }: { reportData: Repor
             <SectionTitle title="五官量感" />
             <div className="facial-density-block">
               <div className="facial-density-img">
-                <img src={(reportData as ReportData).rawData.facial_density.result_image_url} alt="五官量感" />
+                <img src={(reportData as ReportData).rawData?.facial_density?.result_image_url} alt="五官量感" />
               </div>
               <div className="facial-density-info">
-                <div className="density-name">{(reportData as ReportData).rawData.facial_density.result_name}</div>
+                <div className="density-name">{(reportData as ReportData).rawData?.facial_density?.result_name}</div>
                             <div className="density-advice">
-              {(reportData as ReportData).rawData.facial_density.advice && (reportData as ReportData).rawData.facial_density.advice.map((line, i) => (
+                             {(reportData as ReportData).rawData?.facial_density?.advice && (reportData as ReportData).rawData?.facial_density?.advice.map((line, i) => (
                 <div key={i}>{line}</div>
               ))}
             </div>
@@ -443,8 +443,8 @@ export default function Report({ reportData, streamerInfo }: { reportData: Repor
           
           <div className="report-card flex_column">
             <SectionTitle title="五官类型" />
-            <div className="feature-types-block">
-              {(reportData as ReportData).rawData.feature_types && Object.entries((reportData as ReportData).rawData.feature_types).map(([key, value]) => (
+                         <div className="feature-types-block">
+               {(reportData as ReportData).rawData?.feature_types && Object.entries((reportData as ReportData).rawData?.feature_types).map(([key, value]) => (
                 <div className="feature-type-item" key={key}>
                   <div className="feature-type-title">{/* 可用映射将key转为中文，如"眉毛" */}</div>
                   <div className="feature-type-img">
