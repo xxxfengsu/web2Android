@@ -99,7 +99,7 @@ export default function Analysis({
   // 下载文件
   const handleDownload = (fileUrl?: string) => {
     if (!fileUrl) {
-      alert('没有文件可下载');
+      alert('没有文件可查看');
       return;
     }
 
@@ -302,7 +302,7 @@ export default function Analysis({
                          className="history-download"
                          onClick={() => handleDownload(item.fileUrl)}
                        >
-                         下载
+                         查看
                        </div>
                      </div>
                    </div>

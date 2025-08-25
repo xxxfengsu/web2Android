@@ -156,3 +156,39 @@ export function virtualTryOn(data: VirtualTryOnParams) {
     },
   });
 }
+
+/**
+ * 虚拟换发请求参数
+ */
+export interface VirtualHairTryOnParams {
+  personImageUrl: string; // 必需：人物图片URL
+  hairStyleUrl: string; // 必需：发型图片URL
+}
+
+/**
+ * 虚拟换发响应数据结构
+ */
+export interface VirtualHairTryOnResponse {
+  code: number;
+  data: {
+    TryonType: string; // 试穿类型，如"虚拟换发"
+    imageUrl: string; // 换发结果图片URL
+    processTime: number; // 处理时间（毫秒）
+    taskId: string; // 任务ID
+  };
+  msg: string;
+}
+
+/**
+ * 虚拟换发 API
+ */
+export function virtualHairTryOn(data: VirtualHairTryOnParams) {
+  return request({
+    url: "/tryon/hair/aliyun/basics",
+    method: "post",
+    data,
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+}
